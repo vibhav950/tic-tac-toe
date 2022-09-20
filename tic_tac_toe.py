@@ -1,3 +1,18 @@
+#displaying tic-tac-toe grid
+def display(x):
+    for i in range(0,3):
+        for j in range (0,3):
+            if(x[i][j]=='-'):
+                print("   ",end="")
+            else:
+                print(f"{x[i][j]}",end="")
+            if (j in [0,1]):
+                print("|",end="")
+        print("")
+        if (i in [0,1]):
+            print("-----------")
+    print()
+
 #placing turn-by-turn
 def place(pos):
         if pos not in ['11','12','13','21','22','23','31','32','33']:
@@ -13,9 +28,7 @@ def place(pos):
                                 place(inp_pos)
                         else:
                             grid[row][column]='X'
-                            for j in grid:
-                                print(j,sep='\n')
-                            print()
+                            display(grid)
                             return
                 elif i%2!=0:
                         if grid[row][column]!='-':
@@ -24,9 +37,7 @@ def place(pos):
                                 place(inp_pos)
                         else:
                             grid[row][column]='O'
-                            for j in grid:
-                                print(j,sep='\n')
-                            print()
+                            display(grid)
                             return
 #win message
 def win_msg(player):
@@ -34,9 +45,9 @@ def win_msg(player):
         print()
 
 #evaluating grid
-def check(grid):
+def check(x):
         #check row
-        for l in grid:
+        for l in x:
                 if l==['X','X','X']:
                         win_msg('X')
                         return True
@@ -45,20 +56,20 @@ def check(grid):
                         return True
 
         #check column
-        for m in range(len(grid[0])):
-                if grid[0][m]=='X' and grid[0][m]==grid[1][m] and grid[0][m]==grid[2][m]:
+        for m in range(len(x[0])):
+                if x[0][m]=='X' and x[0][m]==x[1][m] and x[0][m]==x[2][m]:
                         win_msg('X')
                         return True
-                elif grid[0][m]=='O' and grid[0][m]==grid[1][m] and grid[0][m]==grid[2][m]:
+                elif x[0][m]=='O' and x[0][m]==x[1][m] and x[0][m]==x[2][m]:
                         win_msg('O')
                         return True
 
         #check left to right diag
         X_diag, O_diag=0, 0
-        for l in range(len(grid)):
-                if grid[l][l]=='X':
+        for l in range(len(x)):
+                if x[l][l]=='X':
                         X_diag+=1
-                elif grid[l][l]=='O':
+                elif x[l][l]=='O':
                         O_diag+=1
         if X_diag==3:
                 win_msg('X')
@@ -69,10 +80,10 @@ def check(grid):
 
         #check right to left diag
         X_diag, O_diag=0, 0
-        for l in range(len(grid)):
-                if grid[l][2-l]=='X':
+        for l in range(len(x)):
+                if x[l][2-l]=='X':
                         X_diag+=2
-                if grid[l][2-l]=='O':
+                if x[l][2-l]=='O':
                         O_diag+=2
         if X_diag==6:
                 win_msg('X')
@@ -88,10 +99,10 @@ def play():
         #initial grid display
         global grid
         grid=[['-','-','-'],['-','-','-'],['-','-','-']]
-        for o in grid:
-                print(o,sep='\n')
-        print()
+        display(grid)
         global i
+
+        #gameplay loop begins
         for i in range(9):
             if i%2==0:
                     print('Place X')
@@ -109,7 +120,7 @@ def play():
                               if cho=='y':
                                       play()
                               else:
-                                      return
+                                return
         else:
             print("It's a Draw!")
             print()
