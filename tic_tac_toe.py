@@ -2,16 +2,17 @@
 def display(x):
     for i in range(0,3):
         for j in range (0,3):
-            if(x[i][j]=='-'):
+            if(x[i][j]==''):
                 print("   ",end="")
             else:
-                print(f"{x[i][j]}",end="")
+                print("",x[i][j],"",end="")
             if (j in [0,1]):
                 print("|",end="")
         print("")
         if (i in [0,1]):
             print("-----------")
     print()
+   
 
 #placing turn-by-turn
 def place(pos):
